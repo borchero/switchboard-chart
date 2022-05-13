@@ -2,7 +2,7 @@ name: Test Helm Chart
 on:
   push:
     branches:
-      - main
+      - "*"
 
 jobs:
   e2e-tests:

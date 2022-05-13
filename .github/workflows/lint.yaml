@@ -1,6 +1,8 @@
 name: Lint Helm Chart
 on:
-  - push
+  push:
+    branches:
+      - "*"
 
 jobs:
   lint:
