@@ -17,10 +17,12 @@ jobs:
             helm registry login ghcr.io --username ${{ github.actor }} --password-stdin
       - name: Install yq
         run: apk add yq
+      - name: Download Dependencies
+        run: helm dependency build
       - name: Package Chart
         run: |
           helm package . \
-            --app-version $(cat values.yaml | yq .image.tag) \
+            --app-version $(yq e .image.tag values.yaml) \
             --version ${{ github.ref_name }}
       - name: Push Chart
         run:
