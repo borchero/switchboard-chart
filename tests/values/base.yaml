@@ -1,0 +1,11 @@
+config:
+  targetService:
+    name: kube-dns
+    namespace: kube-system
+  certificateIssuer:
+    kind: ClusterIssuer
+    name: my-issuer
+external-dns:
+  enabled: true
+cert-manager:
+  enabled: true

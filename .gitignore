@@ -1,0 +1,7 @@
+# Editor
+.vscode/
+
+# Charts
+Chart.lock
+/charts
+*.tgz
