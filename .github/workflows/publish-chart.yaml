@@ -12,11 +12,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Login to GitHub OCI Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ github.token }}
+        run: |
+          echo ${{ github.token }} | \
+            helm registry login ghcr.io --username ${{ github.actor }} --password-stdin
       - name: Install yq
         run: apk add yq
       - name: Package Chart
