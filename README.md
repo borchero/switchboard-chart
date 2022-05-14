@@ -1,6 +1,7 @@
 # Switchboard Helm Chart
 
 ![License](https://img.shields.io/github/license/borchero/switchboard-chart)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/switchboard)](https://artifacthub.io/packages/search?repo=switchboard)
 
 This repository contains the Helm chart as well as detailed instructions for deploying the
 [Switchboard Kubernetes operator](https://github.com/borchero/switchboard). Please read through the
