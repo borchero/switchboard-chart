@@ -27,13 +27,20 @@ When installing Switchboard, you need to set the following parameters as a minim
   point. This is most likely your Traefik instance.
 - `config.targetService.namespace`: The namespace of the Kubernetes service to which DNS records
   should point.
+- `config.certificateIssuer.kind`: The kind of the certificate issuer to use for obtaining TLS
+  certificates.
+- `config.certificateIssuer.name`: The name of the certificate issuer for obtaining TLS
+  certificates.
 
-Then, you can run the installation as follows:
+Then, you can run the installation as follows (note that you need to customize parameters
+appropriately):
 
 ```bash
 helm install \
     --set config.targetService.name=traefik \
     --set config.targetService.namespace=traefik \
+    --set config.certificateIssuer.kind=ClusterIssuer \
+    --set config.certificateIssuer.name=letsencrypt-issuer \
     switchboard \
     oci://ghcr.io/borchero/charts/switchboard
 ```
