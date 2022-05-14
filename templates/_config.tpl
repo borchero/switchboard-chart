@@ -16,11 +16,11 @@ ingressConfig:
   targetService:
     name: {{ $cfg.targetService.name | required "target service name must be provided "}}
     namespace: {{ $cfg.targetService.namespace | default .Release.Namespace }}
-  {{ if $cfg.selector }}
+  {{ if and $cfg.selector $cfg.selector.ingressClass }}
   selector:
     ingressClass: {{ $cfg.selector.ingressClass }}
   {{ end }}
-  {{ if $cfg.certificateIssuer }}
+  {{ if and $cfg.certificateIssuer.name $cfg.certificateIssuer.kind }}
   certificateIssuer:
     name: {{ $cfg.certificateIssuer.name | required "certificate issuer name must be provided" }}
     kind: {{ $cfg.certificateIssuer.kind | required "certificate issuer kind must be provided" }}

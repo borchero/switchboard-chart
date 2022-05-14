@@ -79,3 +79,37 @@ only process the ingress routes with an annotation of `external`, add the follow
 ```bash
 --set config.selector.ingressClass=external
 ```
+
+## Parameters
+
+| Key                            | Type   | Default                          | Description                                                                                                                  |
+| ------------------------------ | ------ | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| config.certificateIssuer.kind  | string | `nil`                            | The kind of certificate issuer to use for obtaining TLS certificates. Required if `certificateIssuer.create` is `false`.     |
+| config.certificateIssuer.name  | string | `nil`                            | The name of the certificate issuer to use for obtaining TLS certificates. Required if `certificateIssuer.create` is `false`. |
+| config.selector.ingressClass   | string | `nil`                            | When set, Switchboard only processes ingress routes with the `kubernetes.io/ingress.class` annotation set to this value.     |
+| config.targetService.name      | string | `nil`                            | The name of the (Traefik) service whose IP address should be used for DNS records.                                           |
+| config.targetService.namespace | string | `nil`                            | The namespace of the (Traefik) service whose IP address should be used for DNS records.                                      |
+| image.name                     | string | `"ghcr.io/borchero/switchboard"` | The switchboard image to use.                                                                                                |
+| image.tag                      | string | `"0.2.0"`                        | The switchboard image tag to use.                                                                                            |
+| metrics.enabled                | bool   | `true`                           | Whether the metrics endpoint should be enabled.                                                                              |
+| metrics.port                   | int    | `9090`                           | The port on which Prometheus metrics can be scraped on path `/metrics`.                                                      |
+| podAnnotations                 | object | `{}`                             | Annotations to set on the switchboard pod.                                                                                   |
+| replicas                       | int    | `1`                              | The number of manager replicas to use.                                                                                       |
+| resources                      | object | `{}`                             | The resources to use for the operator.                                                                                       |
+
+### External Types
+
+| Key                       | Type   | Default | Description                                                                                                                             |
+| ------------------------- | ------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| certificateIssuer.create  | bool   | `false` | Whether an ACME certificate issuer should be created for use with cert-manager.                                                         |
+| certificateIssuer.email   | string | `nil`   |                                                                                                                                         |
+| certificateIssuer.solvers | list   | `[]`    | The solvers to use for verifying that the domain is owned in the ACME challenge. See: https://cert-manager.io/docs/configuration/acme/  |
+| podMonitor.create         | bool   | `false` | Whether a PodMonitor should be created which can be used to scrape the metrics endpoint. Ignored if `metrics.enabled` is set to `false` |
+| podMonitor.namespace      | string | `nil`   | The namespace where the monitor should be created in. Defaults to the release namespace.                                                |
+
+### External Tools
+
+| Key                  | Type | Default | Description                                                                                                                                                                                    |
+| -------------------- | ---- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| cert-manager.install | bool | `false` | Whether the cert-manager chart should be installed See: https://artifacthub.io/packages/helm/cert-manager/cert-manager                                                                         |
+| external-dns.install | bool | `false` | Whether the external-dns chart should be installed. If installed manually, make sure to add the `crd` item to the sources. See: https://artifacthub.io/packages/helm/external-dns/external-dns |

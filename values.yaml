@@ -1,16 +1,16 @@
 image:
-  # The switchboard image to use.
+  # -- The switchboard image to use.
   name: ghcr.io/borchero/switchboard
-  # The switchboard image tag to use.
+  # -- The switchboard image tag to use.
   tag: 0.2.0
 
-# The number of manager replicas to use.
+# -- The number of manager replicas to use.
 replicas: 1
 
-# Annotations to set on the switchboard pod.
+# -- Annotations to set on the switchboard pod.
 podAnnotations: {}
 
-# The resources to use for the operator.
+# -- The resources to use for the operator.
 resources:
   {}
   # requests:
@@ -20,22 +20,26 @@ resources:
   #   cpu: 50m
   #   memory: 40Mi
 
-# The configuration for the ingress routes to reconcile.
 config:
   targetService:
+    # -- The name of the (Traefik) service whose IP address should be used for DNS records.
     name: ~
+    # -- The namespace of the (Traefik) service whose IP address should be used for DNS records.
     namespace: ~
-  # certificateIssuer:
-  #   kind: ClusterIssuer
-  #   name: my-issuer
+  certificateIssuer:
+    # -- The kind of certificate issuer to use for obtaining TLS certificates. Required if `certificateIssuer.create` is `false`.
+    kind: ~
+    # -- The name of the certificate issuer to use for obtaining TLS certificates. Required if `certificateIssuer.create` is `false`.
+    name: ~
   selector:
-    {}
-    # ingressClass: internal
+    # -- When set, Switchboard only processes ingress routes with the
+    # `kubernetes.io/ingress.class` annotation set to this value.
+    ingressClass: ~
 
 metrics:
-  # Whether the metrics endpoint should be enabled.
+  # -- Whether the metrics endpoint should be enabled.
   enabled: true
-  # The port on which Prometheus metrics can be scraped on path `/metrics`.
+  # -- The port on which Prometheus metrics can be scraped on path `/metrics`.
   port: 9090
 
 #--------------------------------------------------------------------------------------------------
@@ -43,19 +47,19 @@ metrics:
 #--------------------------------------------------------------------------------------------------
 
 podMonitor:
-  # Whether a PodMonitor should be created which can be used to scrape the metrics endpoint.
+  # -- Whether a PodMonitor should be created which can be used to scrape the metrics endpoint.
   # Ignored if `metrics.enabled` is set to `false`
   create: false
-  # The namespace where the monitor should be created in. Defaults to the release namespace.
+  # -- The namespace where the monitor should be created in. Defaults to the release namespace.
   namespace: ~
 
 certificateIssuer:
-  # Whether an ACME certificate issuer should be created for use with cert-manager.
+  # -- Whether an ACME certificate issuer should be created for use with cert-manager.
   create: false
-  # This email should be set to something useful -- it is used to send emails when TLS certificates
-  # are about to expire.
+  # -- This email should be set to something useful -- it is used to send emails when TLS
+  # certificates are about to expire.
   email: ~
-  # The solvers to use for verifying that the domain is owned in the ACME challenge.
+  # -- The solvers to use for verifying that the domain is owned in the ACME challenge.
   # See: https://cert-manager.io/docs/configuration/acme/
   solvers: []
 
@@ -64,7 +68,7 @@ certificateIssuer:
 #--------------------------------------------------------------------------------------------------
 
 external-dns:
-  # Whether the external-dns chart should be installed. If installed manually, make sure to add
+  # -- Whether the external-dns chart should be installed. If installed manually, make sure to add
   # the `crd` item to the sources.
   # See: https://artifacthub.io/packages/helm/external-dns/external-dns
   install: false
@@ -80,7 +84,7 @@ external-dns:
 #--------------------------------------------------------------------------------------------------
 
 cert-manager:
-  # Whether the cert-manager chart should be installed
+  # -- Whether the cert-manager chart should be installed
   # See: https://artifacthub.io/packages/helm/cert-manager/cert-manager
   install: false
 
