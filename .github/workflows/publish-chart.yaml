@@ -26,5 +26,6 @@ jobs:
             --app-version $(yq e .image.tag values.yaml) \
             --version ${VERSION#v}
       - name: Push Chart
-        run:
-          helm push switchboard-${{ github.ref_name }}.tgz oci://ghcr.io/${{ github.actor }}/charts
+        run: |
+          VERSION=${{ github.ref_name }}
+          helm push switchboard-${VERSION#v}.tgz oci://ghcr.io/${{ github.actor }}/charts
