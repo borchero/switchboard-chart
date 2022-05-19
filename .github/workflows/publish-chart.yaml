@@ -21,9 +21,10 @@ jobs:
         run: helm dependency build
       - name: Package Chart
         run: |
+          VERSION=${{ github.ref_name }}
           helm package . \
             --app-version $(yq e .image.tag values.yaml) \
-            --version ${{ github.ref_name }}
+            --version ${VERSION#v}
       - name: Push Chart
         run:
           helm push switchboard-${{ github.ref_name }}.tgz oci://ghcr.io/${{ github.actor }}/charts
