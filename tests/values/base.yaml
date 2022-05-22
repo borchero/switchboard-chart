@@ -1,10 +1,14 @@
-config:
-  targetService:
-    name: kube-dns
-    namespace: kube-system
-  certificateIssuer:
-    kind: ClusterIssuer
-    name: my-issuer
+integrations:
+  certManager:
+    enabled: true
+    issuer:
+      kind: ClusterIssuer
+      name: my-issuer
+  externalDNS:
+    enabled: true
+    target:
+      name: kube-dns
+      namespace: kube-system
 external-dns:
   enabled: true
 cert-manager:

@@ -10,18 +10,23 @@ metadata:
   name: {{ .Release.Name }}
 rules:
   # Controller Permissions
-  - apiGroups: [""]
-    resources: ["services"]
-    verbs: ["get", "list", "watch"]
   - apiGroups: ["traefik.containo.us"]
     resources: ["ingressroutes"]
     verbs: ["get", "list", "watch"]
+  # Integrations
+  {{ if .Values.integrations.certManager.enabled }}
   - apiGroups: ["cert-manager.io"]
     resources: ["certificates"]
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  {{ end }}
+  {{ if .Values.integrations.externalDNS.enabled }}
   - apiGroups: ["externaldns.k8s.io"]
     resources: ["dnsendpoints"]
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get", "list", "watch"]
+  {{ end }}
   # Leader Election
   - apiGroups: [""]
     resources: ["configmaps"]
