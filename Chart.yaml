@@ -16,7 +16,7 @@ keywords:
 
 dependencies:
   - name: external-dns
-    version: 1.9.0
+    version: 6.5.2
     repository: https://charts.bitnami.com/bitnami
     condition: external-dns.install
   - name: cert-manager
