@@ -2,7 +2,7 @@ image:
   # -- The switchboard image to use.
   name: ghcr.io/borchero/switchboard
   # -- The switchboard image tag to use.
-  tag: 0.3.0
+  tag: 0.4.0
 
 # -- The number of manager replicas to use.
 replicas: 1
@@ -43,7 +43,10 @@ integrations:
     #    are created by Switchboard. Setting this to `true` requires specifying the target via
     #    `integrations.externalDNS.target`.
     enabled: false
-    target:
+    # -- The static IP addresses that created DNS records should point to. Must not be provided
+    #    if the target service is set.
+    targetIPs: []
+    targetService:
       # -- The name of the (Traefik) service whose IP address should be used for DNS records.
       name: ~
       # -- The namespace of the (Traefik) service whose IP address should be used for DNS records.

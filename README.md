@@ -57,8 +57,9 @@ The following lists all values that may be set when installing this chart (see
 | integrations.certManager.issuer.kind | string | `nil` | The kind of certificate issuer to use for obtaining TLS certificates. |
 | integrations.certManager.issuer.name | string | `nil` | The name of the certificate issuer to use for obtaining TLS certificates. |
 | integrations.externalDNS.enabled | bool | `false` | Whether the external-dns integration should be enabled. If enabled `DNSEndpoint` resources    are created by Switchboard. Setting this to `true` requires specifying the target via    `integrations.externalDNS.target`. |
-| integrations.externalDNS.target.name | string | `nil` | The name of the (Traefik) service whose IP address should be used for DNS records. |
-| integrations.externalDNS.target.namespace | string | `nil` | The namespace of the (Traefik) service whose IP address should be used for DNS records. |
+| integrations.externalDNS.targetIPs | list | `[]` | The static IP addresses that created DNS records should point to. Must not be provided    if the target service is set. |
+| integrations.externalDNS.targetService.name | string | `nil` | The name of the (Traefik) service whose IP address should be used for DNS records. |
+| integrations.externalDNS.targetService.namespace | string | `nil` | The namespace of the (Traefik) service whose IP address should be used for DNS records. |
 | metrics.enabled | bool | `true` | Whether the metrics endpoint should be enabled. |
 | metrics.port | int | `9090` | The port on which Prometheus metrics can be scraped on path `/metrics`. |
 | podAnnotations | object | `{}` | Annotations to set on the switchboard pod. |

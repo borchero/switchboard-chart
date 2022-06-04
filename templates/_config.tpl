@@ -38,9 +38,16 @@ integrations:
   {{ end }}
   {{ if $externalDNS.enabled }}
   externalDNS:
-    target:
-      name: {{ $externalDNS.target.name | required "target name required" }}
-      namespace: {{ $externalDNS.target.namespace | required "target namespace required" }}
+    {{ if and $externalDNS.targetService.name $externalDNS.targetService.namespace }}
+    targetService:
+      name: {{ $externalDNS.targetService.name }}
+      namespace: {{ $externalDNS.targetService.namespace }}
+    {{ else if $externalDNS.targetIPs }}
+    targetIPs:
+      {{ toYaml $externalDNS.targetIPs | nindent 6 }}
+    {{ else }}
+      {{ fail "exactly one of target service and target IPs must be set for external dns" }}
+    {{ end }}
   {{ end }}
 {{ end }}
 
