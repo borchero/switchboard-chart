@@ -6,7 +6,7 @@ integrations:
       name: my-issuer
   externalDNS:
     enabled: true
-    target:
+    targetService:
       name: kube-dns
       namespace: kube-system
 external-dns:
