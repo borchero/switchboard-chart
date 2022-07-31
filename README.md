@@ -1,6 +1,6 @@
 # Switchboard Helm Chart
 
-** This repository is archived. Its contents are moved to the [main Switchboard repository](https://github.com/borchero/switchboard). **
+**This repository is archived. Its contents are moved to the [main Switchboard repository](https://github.com/borchero/switchboard).**
 
 ![Type: application](https://img.shields.io/badge/Type-application-informational)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/switchboard)](https://artifacthub.io/packages/search?repo=switchboard)
